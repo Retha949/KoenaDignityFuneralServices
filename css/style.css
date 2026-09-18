@@ -1,0 +1,1170 @@
+```css
+/* =========================================================
+   KOENA DIGNITY FUNERAL SERVICES
+   Shared CSS for all 5 pages
+   Pages:
+   1. index.html
+   2. about.html
+   3. packages.html
+   4. enquiry.html
+   5. contact.html
+   ========================================================= */
+
+
+/* =========================================================
+   1. GENERAL SETTINGS
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    color: #222222;
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+
+/* =========================================================
+   2. COLOUR VARIABLES
+   ========================================================= */
+
+:root {
+    --navy: #0b1f3a;
+    --dark-navy: #071426;
+    --gold: #c9a227;
+    --light-gold: #e2c35a;
+    --silver: #b8b8b8;
+    --white: #ffffff;
+    --light-bg: #f5f5f5;
+    --dark-text: #222222;
+    --grey-text: #666666;
+    --border: #dddddd;
+}
+
+
+/* =========================================================
+   3. TOP BAR
+   ========================================================= */
+
+.top-bar {
+    background-color: var(--dark-navy);
+    color: var(--white);
+    padding: 10px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+}
+
+.top-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gold-icon {
+    color: var(--gold);
+    font-weight: bold;
+}
+
+.socials {
+    display: flex;
+    gap: 15px;
+}
+
+.socials a {
+    color: var(--white);
+    transition: 0.3s;
+}
+
+.socials a:hover {
+    color: var(--gold);
+}
+
+
+/* =========================================================
+   4. HEADER AND NAVIGATION
+   ========================================================= */
+
+.header {
+    background-color: var(--white);
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 10;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-container img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.logo-container h1 {
+    color: var(--navy);
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.logo-container p {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.navigation a {
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    padding: 8px 0;
+    transition: 0.3s;
+}
+
+.navigation a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: var(--gold);
+    left: 0;
+    bottom: 0;
+    transition: 0.3s;
+}
+
+.navigation a:hover {
+    color: var(--gold);
+}
+
+.navigation a:hover::after {
+    width: 100%;
+}
+
+
+/* =========================================================
+   5. HERO SECTION
+   ========================================================= */
+
+.hero {
+    position: relative;
+    min-height: 520px;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/hero.jpg");
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 20, 38, 0.70);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    min-height: 520px;
+    max-width: 850px;
+    margin: auto;
+    padding: 100px 30px;
+    text-align: center;
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    line-height: 1.2;
+    margin-bottom: 18px;
+}
+
+.hero-content h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    max-width: 720px;
+    margin-bottom: 25px;
+    color: #eeeeee;
+}
+
+.hero-content .gold-text {
+    color: var(--gold);
+}
+
+
+/* =========================================================
+   6. GOLD LINES
+   ========================================================= */
+
+.gold-line {
+    width: 90px;
+    height: 3px;
+    background-color: var(--gold);
+    margin: 18px auto;
+}
+
+.small-gold-line {
+    width: 55px;
+    height: 3px;
+    background-color: var(--gold);
+    margin: 12px 0;
+}
+
+
+/* =========================================================
+   7. BUTTONS
+   ========================================================= */
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.gold-button,
+.outline-button,
+.learn-more {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 3px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.gold-button {
+    background-color: var(--gold);
+    color: var(--white);
+    border: 2px solid var(--gold);
+}
+
+.gold-button:hover {
+    background-color: var(--light-gold);
+    border-color: var(--light-gold);
+}
+
+.outline-button {
+    border: 2px solid var(--white);
+    color: var(--white);
+}
+
+.outline-button:hover {
+    background-color: var(--white);
+    color: var(--navy);
+}
+
+.learn-more {
+    background-color: var(--navy);
+    color: var(--white);
+    margin-top: 15px;
+}
+
+.learn-more:hover {
+    background-color: var(--gold);
+}
+
+
+/* =========================================================
+   8. HIGHLIGHTS
+   ========================================================= */
+
+.highlights {
+    background-color: var(--navy);
+    color: var(--white);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 45px 6%;
+    text-align: center;
+}
+
+.highlight {
+    padding: 20px;
+}
+
+.highlight h3 {
+    color: var(--white);
+    margin: 10px 0;
+}
+
+.highlight p {
+    color: #dddddd;
+    font-size: 14px;
+}
+
+.circle-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 15px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--gold);
+    font-size: 22px;
+}
+
+
+/* =========================================================
+   9. ABOUT PREVIEW
+   ========================================================= */
+
+.about-preview {
+    padding: 80px 6%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-text {
+    max-width: 650px;
+}
+
+.section-label {
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.about-text h2,
+.section-heading h2 {
+    color: var(--navy);
+    font-size: 36px;
+    line-height: 1.2;
+    margin-bottom: 15px;
+}
+
+.about-text p {
+    color: var(--grey-text);
+    margin-bottom: 15px;
+}
+
+.about-image img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   10. GENERAL SECTIONS
+   ========================================================= */
+
+.services-section {
+    padding: 80px 6%;
+    background-color: var(--light-bg);
+}
+
+.section-heading {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 45px;
+}
+
+.section-heading p {
+    color: var(--grey-text);
+}
+
+.section-heading .small-gold-line {
+    margin: 15px auto;
+}
+
+
+/* =========================================================
+   11. SERVICE / PACKAGE CARDS
+   ========================================================= */
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.service-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    padding: 30px;
+    border-radius: 5px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.10);
+    border-color: var(--gold);
+}
+
+.service-number {
+    width: 45px;
+    height: 45px;
+    background-color: var(--gold);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+.service-card h3 {
+    color: var(--navy);
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.service-card h4 {
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    color: var(--grey-text);
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.service-card ul {
+    margin: 15px 0;
+}
+
+.service-card li {
+    color: var(--grey-text);
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.service-card li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: bold;
+}
+
+.service-card > a {
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   12. ABOUT PAGE CONTENT
+   ========================================================= */
+
+.about-page-section {
+    padding: 75px 6%;
+}
+
+.about-page-section:nth-child(even) {
+    background-color: var(--light-bg);
+}
+
+.about-page-section h2 {
+    color: var(--navy);
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.about-page-section h3 {
+    color: var(--navy);
+    margin-bottom: 10px;
+}
+
+.about-page-section p {
+    color: var(--grey-text);
+    margin-bottom: 15px;
+}
+
+.about-page-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.about-page-grid img {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+
+/* =========================================================
+   13. VALUES / INFORMATION BOXES
+   ========================================================= */
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.info-card {
+    background-color: var(--white);
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--gold);
+    border-radius: 4px;
+}
+
+.info-card h3 {
+    color: var(--navy);
+    margin-bottom: 10px;
+}
+
+.info-card p {
+    color: var(--grey-text);
+}
+
+
+/* =========================================================
+   14. PACKAGE PAGE
+   ========================================================= */
+
+.package-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 20px 6% 70px;
+}
+
+.package-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.package-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.10);
+}
+
+.package-card-header {
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 25px;
+    text-align: center;
+}
+
+.package-card-header h3 {
+    color: var(--white);
+    margin-bottom: 5px;
+}
+
+.package-price {
+    color: var(--gold);
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.package-card-body {
+    padding: 25px;
+}
+
+.package-card-body li {
+    color: var(--grey-text);
+    padding: 7px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.package-card-body li:last-child {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   15. ENQUIRY / CONTACT FORM
+   ========================================================= */
+
+.contact-form {
+    max-width: 850px;
+    margin: 0 auto;
+    background-color: var(--white);
+    padding: 35px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+.contact-form h2 {
+    color: var(--navy);
+    margin-bottom: 10px;
+}
+
+.contact-form p {
+    color: var(--grey-text);
+    margin-bottom: 25px;
+}
+
+.contact-form label {
+    display: block;
+    color: var(--navy);
+    font-weight: bold;
+    margin-bottom: 7px;
+    margin-top: 15px;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    background-color: #ffffff;
+}
+
+.contact-form textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.15);
+}
+
+.contact-form button {
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+
+/* =========================================================
+   16. FORM TWO-COLUMN LAYOUT
+   ========================================================= */
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    width: 100%;
+}
+
+
+/* =========================================================
+   17. CONTACT INFORMATION
+   ========================================================= */
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin: 40px auto;
+    max-width: 1100px;
+}
+
+.contact-info-card {
+    text-align: center;
+    background-color: var(--light-bg);
+    padding: 30px 20px;
+    border-top: 3px solid var(--gold);
+}
+
+.contact-info-card h3 {
+    color: var(--navy);
+    margin: 12px 0 8px;
+}
+
+.contact-info-card p {
+    color: var(--grey-text);
+}
+
+.contact-info-card a {
+    color: var(--navy);
+}
+
+.contact-info-card a:hover {
+    color: var(--gold);
+}
+
+
+/* =========================================================
+   18. MAP / CONTACT IMAGE
+   ========================================================= */
+
+.map-container {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.map-container img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+
+/* =========================================================
+   19. CTA SECTION
+   ========================================================= */
+
+.cta {
+    position: relative;
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 70px 6%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 20, 38, 0.30);
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: auto;
+}
+
+.cta h2 {
+    color: var(--white);
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.cta p {
+    color: #eeeeee;
+    margin-bottom: 25px;
+}
+
+.cta .gold-button {
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   20. FOOTER
+   ========================================================= */
+
+.footer {
+    background-color: var(--dark-navy);
+    color: var(--white);
+    padding: 60px 6% 20px;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-column h3 {
+    color: var(--gold);
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.footer-column p {
+    color: #cccccc;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.footer-column a {
+    color: #cccccc;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.footer-column a:hover {
+    color: var(--gold);
+}
+
+.footer-logo {
+    color: var(--white);
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.copyright {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    text-align: center;
+    margin-top: 45px;
+    padding-top: 20px;
+    color: #aaaaaa;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   21. TABLES
+   ========================================================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    background-color: var(--white);
+}
+
+th {
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 15px;
+    text-align: left;
+}
+
+td {
+    padding: 14px 15px;
+    border-bottom: 1px solid var(--border);
+    color: var(--grey-text);
+}
+
+tr:hover td {
+    background-color: #fafafa;
+}
+
+
+/* =========================================================
+   22. GENERAL LISTS
+   ========================================================= */
+
+.content-list {
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.content-list li {
+    color: var(--grey-text);
+    padding: 8px 0 8px 25px;
+    position: relative;
+}
+
+.content-list li::before {
+    content: "•";
+    position: absolute;
+    left: 5px;
+    color: var(--gold);
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   23. IMAGE SECTIONS
+   ========================================================= */
+
+.image-section {
+    padding: 70px 6%;
+}
+
+.image-section img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.image-grid img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+
+/* =========================================================
+   24. MOBILE NAVIGATION
+   ========================================================= */
+
+.menu-toggle {
+    display: none;
+}
+
+
+/* =========================================================
+   25. RESPONSIVE DESIGN - TABLETS
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .header {
+        padding: 15px 4%;
+    }
+
+    .navigation {
+        gap: 16px;
+    }
+
+    .navigation a {
+        font-size: 13px;
+    }
+
+    .about-preview {
+        gap: 35px;
+    }
+
+    .service-grid,
+    .package-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* =========================================================
+   26. RESPONSIVE DESIGN - MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .top-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .logo-container {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .navigation {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 20px;
+    }
+
+    .navigation a {
+        font-size: 12px;
+    }
+
+    .hero,
+    .hero-content {
+        min-height: 480px;
+    }
+
+    .hero-content {
+        padding: 70px 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 34px;
+    }
+
+    .hero-content h2 {
+        font-size: 26px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    .highlights {
+        grid-template-columns: 1fr;
+        padding: 35px 8%;
+    }
+
+    .about-preview {
+        grid-template-columns: 1fr;
+        padding: 60px 7%;
+    }
+
+    .about-text h2,
+    .section-heading h2 {
+        font-size: 29px;
+    }
+
+    .about-image img {
+        height: 300px;
+    }
+
+    .services-section {
+        padding: 60px 7%;
+    }
+
+    .service-grid,
+    .package-grid,
+    .info-grid,
+    .contact-info {
+        grid-template-columns: 1fr;
+    }
+
+    .package-grid {
+        padding-left: 7%;
+        padding-right: 7%;
+    }
+
+    .about-page-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .contact-form {
+        padding: 25px 20px;
+    }
+
+    .cta {
+        padding: 55px 7%;
+    }
+
+    .cta h2 {
+        font-size: 29px;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer {
+        padding-left: 7%;
+        padding-right: 7%;
+    }
+}
+
+
+/* =========================================================
+   27. SMALL MOBILE PHONES
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .logo-container h1 {
+        font-size: 20px;
+    }
+
+    .logo-container img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .hero-content h1 {
+        font-size: 28px;
+    }
+
+    .hero-content h2 {
+        font-size: 22px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .gold-button,
+    .outline-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .service-card {
+        padding: 22px;
+    }
+
+    .contact-form {
+        padding: 20px 15px;
+    }
+}
+```
+
+
