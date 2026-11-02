@@ -129,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   document.querySelectorAll("form").forEach(form => {
-    form.noValidate = true;
     const purpose = form.dataset.formPurpose || "Website enquiry";
     const rules = formRules[purpose] || { required: [] };
     const feedback = form.querySelector(".form-feedback");
@@ -241,6 +240,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       return true;
     }
+
+    // Preserve native HTML constraint validation while also showing inline field errors.
+    form.addEventListener("invalid", event => {
+      if (fields.includes(event.target)) validateField(event.target);
+    }, true);
 
     // Validate a field as the visitor leaves it, and refresh feedback while they edit.
     fields.forEach(field => {
