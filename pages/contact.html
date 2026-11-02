@@ -9,6 +9,12 @@
       content="Contact Koena Dignity Funeral Services by telephone, email or the contact form, and view the supplied map location in Gqeberha."
     />
     <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -139,16 +145,19 @@
         <h2>Find our listed location</h2>
         <p>3 Brunswick Road, Perridgevale, Gqeberha, 6001</p>
         <div class="map-embed">
-          <iframe
-            title="Map showing 3 Brunswick Road, Perridgevale, Gqeberha"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3309.8301470520328!2d25.58067187643229!3d-33.94549647319732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e7ad3cc2be3ed4f%3A0x75f4ff4843a4d48c!2s3%20Brunswick%20Rd%2C%20Perridgevale%2C%20Gqeberha%2C%206001!5e0!3m2!1sen!2sza!4v1793620440735!5m2!1sen!2sza"
-            width="600"
-            height="450"
-            style="border:0; width:100%; max-width:100%;"
-            allowfullscreen
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-          ></iframe>
+          <div
+            id="contact-map"
+            class="leaflet-map"
+            role="region"
+            aria-label="Interactive map showing 3 Brunswick Road, Perridgevale, Gqeberha"
+            tabindex="0"
+          ></div>
+          <p id="map-status" class="map-status" role="status" aria-live="polite">
+            Loading interactive map…
+          </p>
+          <noscript>
+            <p class="map-status">JavaScript is required to use the interactive map. Please use the Google Maps directions link below.</p>
+          </noscript>
         </div>
         <p>
           <a
@@ -188,6 +197,12 @@
         © 2026 Koena Dignity Funeral Services · Academic website project
       </p>
     </footer>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+      defer
+    ></script>
     <script src="../assets/js/script.js" defer></script>
   </body>
 </html>
