@@ -21,11 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const cards = Array.from(document.querySelectorAll(".package-card"));
 
   const serviceTerms = {
-    arrangements: ["funeral arrangement", "funeral coordination", "administrative support"],
-    coffin: ["coffin"],
-    transport: ["transportation", "hearse"],
-    memorial: ["memorial"],
-    floral: ["floral"]
+    arrangements: ["funeral arrangement", "funeral coordination", "administrative support", "planning", "family support"],
+    coffin: ["coffin", "casket"],
+    transport: ["transportation", "hearse", "transfer", "vehicle"],
+    memorial: ["memorial", "tribute", "programme", "remembrance"],
+    floral: ["floral", "flowers", "wreath"]
   };
 
   const normalise = value => value.toLocaleLowerCase().replace(/\s+/g, " ").trim();
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const heading = normalise(card.querySelector("h3")?.textContent || "");
       const content = normalise(card.textContent);
       const matchesSearch = !query || content.includes(query);
-      const matchesType = selectedType === "all" || heading.startsWith(selectedType);
+      const matchesType = selectedType === "all" || card.dataset.packageType === selectedType;
       const matchingTerms = serviceTerms[selectedService] || [];
       const matchesService = selectedService === "all"
         || matchingTerms.some(term => content.includes(term));
