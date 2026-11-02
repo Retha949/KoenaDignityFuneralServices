@@ -10,3 +10,8 @@
 @media(max-width:900px){.site-header{padding:14px 5%}.navigation{gap:13px}.navigation a{font-size:13px}.split{gap:30px}.trust-strip{grid-template-columns:repeat(2,1fr)}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.topbar{flex-direction:column;gap:3px;text-align:center}.site-header{flex-wrap:wrap}.menu-toggle{display:block}.navigation{display:none;flex-basis:100%;flex-direction:column;align-items:stretch;gap:0;padding:8px 0 0}.navigation.is-open{display:flex}.navigation a{padding:12px 5px;border-bottom:1px solid var(--line)}.home-hero{min-height:480px;padding:60px 7%}.trust-strip{padding:22px 5%}.content-section{padding:54px 6%}.split,.card-grid,.package-grid,.gallery-grid,.footer-grid{grid-template-columns:1fr}.feature-image{height:290px}.package-filter{grid-template-columns:1fr;padding:17px}.package-filter .button{width:100%}.form-grid{grid-template-columns:1fr}.page-hero{padding:60px 6%}.footer-grid{text-align:center}.footer-grid p{margin-left:auto;margin-right:auto}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* Responsive interactive Google Maps embed (Contact page). */
+.map-embed{width:100%;max-width:100%;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper)}
+.map-embed iframe{display:block;width:100%;height:clamp(320px,55vw,520px);min-height:320px;border:0}
+@media(max-width:700px){.map-embed iframe{height:360px;min-height:360px}}
