@@ -86,93 +86,139 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // JavaScript-only form validation and email hand-off (HTML validation is disabled).
-  document.querySelectorAll(".email-form").forEach(form => {
+  // JavaScript-only validation for every form on the website.
+  const formRules = {
+    "Contact message": {
+      required: ["contact-name", "contact-email", "contact-phone", "contact-subject", "contact-message"],
+      consent: false
+    },
+    "Funeral services enquiry": {
+      required: ["first-name", "surname", "enquiry-phone", "enquiry-email", "contact-method", "enquiry-type", "enquiry-message"],
+      consent: true
+    }
+  };
+
+  const todayLocal = () => {
+    const now = new Date();
+    const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+    return local.toISOString().slice(0, 10);
+  };
+
+  document.querySelectorAll("form").forEach(form => {
+    // novalidate prevents browser pop-ups; all checks below are handled here.
     form.noValidate = true;
-    const dateInput = form.querySelector('input[type="date"]');
-    if (dateInput) dateInput.min = new Date().toISOString().slice(0, 10);
+    const feedback = form.querySelector(".form-feedback");
+    const purpose = form.dataset.formPurpose || "Website enquiry";
+    const rules = formRules[purpose] || { required: [], consent: false };
+    const fields = Array.from(form.querySelectorAll("input, select, textarea"));
+    const dateField = form.querySelector('input[type="date"]');
+
+    const fieldLabel = field => {
+      const label = field.id && form.querySelector('label[for="' + field.id + '"]');
+      return (label ? label.textContent : field.name || "This field").trim();
+    };
+
+    const clearFieldError = field => {
+      field.removeAttribute("aria-invalid");
+      field.classList.remove("is-invalid");
+    };
+
+    fields.forEach(field => {
+      field.addEventListener("input", () => {
+        clearFieldError(field);
+        if (feedback) feedback.textContent = "";
+      });
+      field.addEventListener("change", () => {
+        clearFieldError(field);
+        if (feedback) feedback.textContent = "";
+      });
+    });
 
     form.addEventListener("submit", event => {
       event.preventDefault();
-      const feedback = form.querySelector(".form-feedback");
-      const fields = Array.from(form.querySelectorAll("input, select, textarea"));
       const errors = [];
       let firstInvalid = null;
 
-      const fail = (field, message) => {
-        if (!firstInvalid) firstInvalid = field;
+      fields.forEach(clearFieldError);
+
+      const addError = (field, message) => {
         errors.push(message);
+        field.setAttribute("aria-invalid", "true");
+        field.classList.add("is-invalid");
+        if (!firstInvalid) firstInvalid = field;
       };
 
+      rules.required.forEach(id => {
+        const field = form.querySelector("#" + id);
+        if (field && !field.value.trim()) {
+          addError(field, fieldLabel(field) + " is required.");
+        }
+      });
+
       fields.forEach(field => {
-        const value = field.type === "checkbox" ? field.checked : field.value.trim();
-        const label = form.querySelector('label[for="' + field.id + '"]')?.textContent.trim()
-          || field.name || "This field";
-
-        if (field.type === "checkbox") {
-          if (field.dataset.requiredConsent === "true" && !field.checked) {
-            fail(field, "Please agree to the consent statement.");
-          }
-          return;
-        }
-
-        if (field.hasAttribute("data-required") && !value) {
-          fail(field, label + " is required.");
-          return;
-        }
-        if (!value) return;
+        const value = field.value.trim();
+        if (!value || field.type === "checkbox") return;
 
         if (field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-          fail(field, "Please enter a valid email address.");
-        } else if (field.type === "tel" && !/^[0-9+()\s-]{7,20}$/.test(value)) {
-          fail(field, "Enter a valid phone number using 7 to 20 digits, spaces or +()- characters.");
-        } else if ((field.id === "contact-name" || field.id === "first-name" || field.id === "surname") && value.length < 2) {
-          fail(field, label + " must contain at least 2 characters.");
-        } else if ((field.id === "contact-message" || field.id === "enquiry-message") && value.length < 10) {
-          fail(field, "Please provide at least 10 characters of message information.");
-        } else if (field.type === "date" && dateInput && value < dateInput.min) {
-          fail(field, "Please choose today or a future date.");
-        } else if (field.type === "number" && field.id === "attendees") {
-          const number = Number(value);
-          if (!Number.isInteger(number) || number < 1 || number > 10000) {
-            fail(field, "Estimated attendees must be a whole number between 1 and 10,000.");
+          addError(field, "Enter a valid email address for " + fieldLabel(field) + ".");
+        }
+
+        if (field.type === "tel") {
+          const digits = value.replace(/\D/g, "");
+          if (!/^[0-9+()\s-]+$/.test(value) || digits.length < 7 || digits.length > 15) {
+            addError(field, "Enter a valid phone number containing 7 to 15 digits.");
+          }
+        }
+
+        if (["contact-name", "first-name", "surname"].includes(field.id) && value.length < 2) {
+          addError(field, fieldLabel(field) + " must contain at least 2 characters.");
+        }
+
+        if (["contact-message", "enquiry-message"].includes(field.id) && value.length < 10) {
+          addError(field, fieldLabel(field) + " must contain at least 10 characters.");
+        }
+
+        if (field.type === "date" && value < todayLocal()) {
+          addError(field, "The preferred date cannot be in the past.");
+        }
+
+        if (field.type === "number" && field.id === "attendees") {
+          const count = Number(value);
+          if (!Number.isInteger(count) || count < 1 || count > 10000) {
+            addError(field, "Estimated attendees must be a whole number from 1 to 10,000.");
           }
         }
       });
 
-      // Explicit required-field rules for the two forms.
-      const requiredIds = form.dataset.formPurpose === "Contact message"
-        ? ["contact-name", "contact-email", "contact-phone", "contact-subject", "contact-message"]
-        : ["first-name", "surname", "enquiry-phone", "enquiry-email", "contact-method", "enquiry-type", "enquiry-message"];
-      requiredIds.forEach(id => {
-        const field = form.querySelector("#" + id);
-        if (field && !field.value.trim() && !errors.some(message => message.startsWith((form.querySelector('label[for="' + id + '"]')?.textContent.trim() || field.name) + " is required"))) {
-          fail(field, (form.querySelector('label[for="' + id + '"]')?.textContent.trim() || field.name) + " is required.");
+      if (rules.consent) {
+        const consent = form.querySelector('input[name="Consent"]');
+        if (consent && !consent.checked) {
+          addError(consent, "Please agree to the consent statement before submitting.");
         }
-      });
-      const consent = form.querySelector('input[name="Consent"]');
-      if (consent && !consent.checked) fail(consent, "Please agree that your information may be used to respond to this enquiry.");
+      }
 
       if (errors.length) {
         if (feedback) {
-          feedback.textContent = "Please correct the following: " + errors.join(" ");
+          feedback.textContent = "Please correct these items: " + errors.join(" ");
+          feedback.setAttribute("role", "alert");
           feedback.setAttribute("aria-live", "assertive");
         }
         firstInvalid?.focus();
         return;
       }
 
-      const data = new FormData(form);
       const lines = [];
-      for (const [key, value] of data.entries()) {
+      new FormData(form).forEach((value, key) => {
         if (key.toLowerCase() !== "consent") lines.push(key + ": " + value);
-      }
-      const purpose = form.dataset.formPurpose || "Website enquiry";
+      });
+
       const subject = encodeURIComponent(purpose + " - Koena Dignity Funeral Services");
       const body = encodeURIComponent(lines.join("\n"));
       const mailto = "mailto:info@koenadignity.co.za?subject=" + subject + "&body=" + body;
+
       if (feedback) {
-        feedback.textContent = "Your email application should open with the details prepared. Please review the message and press Send in your email application.";
+        feedback.textContent = "Your email application should open with your details prepared. Review the message and press Send in your email application.";
+        feedback.setAttribute("role", "status");
         feedback.setAttribute("aria-live", "polite");
       }
       window.location.href = mailto;
