@@ -82,11 +82,13 @@
           <h2>Contact form</h2>
           <form
             class="email-form"
-            action="mailto:info@koenadignity.co.za"
-            method="post"
-            enctype="text/plain"
+            action="https://api.web3forms.com/submit"
+            method="POST"
+            enctype="multipart/form-data"
             data-form-purpose="Contact message"
           >
+            <input type="hidden" name="access_key" value="3d0bb417-32d0-4ac1-8894-3d82f13bfffe" />
+            <input type="hidden" name="subject" value="New contact message - Koena Dignity Funeral Services" />
             <label for="contact-name">Full name</label
             ><input
               id="contact-name"
@@ -129,13 +131,12 @@
               maxlength="1000"
             ></textarea
             ><button class="button button-gold" type="submit">
-              Prepare email
+              Send message
             </button>
             <p class="form-feedback" role="status" aria-live="polite"></p>
             <p class="form-note">
-              Your email application should open with the details prepared.
-              Review the message and press Send there. This website does not
-              currently store or transmit submissions.
+              Your message will be sent securely through the form service.
+              Please do not include sensitive personal or financial information.
             </p>
           </form>
         </div>
