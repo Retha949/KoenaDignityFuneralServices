@@ -1,25 +1,71 @@
-# KoenaDignityFuneralServices
-## Project Overview
+# Koena Dignity Funeral Services
 
-Koena Dignity Funeral Services is a proposed South African funeral parlour based in Bloemfontein, Free State. The organisation provides professional and compassionate funeral services to individuals and families during times of bereavement.
+A responsive multi-page academic website for Koena Dignity Funeral Services, a proposed funeral parlour based in Bloemfontein, Free State.
 
-The name "Koena" is inspired by the Bakoena (Koena/Crocodile) clan, one of the principal Basotho clans. The clan has historical significance within Basotho history and is associated with the lineage of King Moshoeshoe I. The website therefore incorporates elements of dignity, respect, community and Basotho heritage while remaining welcoming to people from different cultural and religious backgrounds.
+## Website pages
 
-The purpose of this project is to design and develop a professional, accessible and user-friendly website for Koena Dignity Funeral Services. The website will provide visitors with information about the organisation, its services, funeral packages and contact details.
+- `index.html` — home page and frequently asked questions
+- `pages/about.html` — background, values and heritage
+- `pages/packages.html` — package descriptions with keyword search and service filters
+- `pages/gallery.html` — image gallery with an accessible lightbox
+- `pages/enquiry.html` — enquiry form
+- `pages/contact.html` — contact details and contact form
 
-The website will also allow potential customers to submit enquiries online, making it easier for families to communicate with the organisation.
+## Features
 
-## Website Goals and Objectives
+- Responsive navigation with a mobile menu and skip-to-content link.
+- Semantic HTML, page-specific titles and meta descriptions, and descriptive image alternative text.
+- Client-side package search and service-category filtering.
+- FAQ accordion using native HTML `details` and `summary` elements.
+- Gallery lightbox using the native HTML dialog element.
+- HTML5 form constraints, email validation, phone format checks and client-side feedback.
+- Package enquiry links preselect the chosen package on the enquiry page.
+- Reduced-motion support.
 
-The main goal of the website is to establish a professional online presence for Koena Dignity Funeral Services.
+## Forms: important limitation
 
-The website aims to:
+The contact and enquiry forms validate input and prepare an email using the visitor's configured email application (`mailto:`). The visitor must review and press **Send** in that application. The website does **not** currently send form data to a server or store submissions. To provide true online form submission, connect a form backend (for example Formspree, Netlify Forms or a custom server endpoint), configure its destination and update the form action before production use.
 
-- Provide information about the organisation and its services.
-- Make funeral service information available online.
-- Allow customers to submit enquiries.
-- Provide easily accessible contact information.
-- Display funeral packages and available services.
-- Improve communication with customers.
-- Create a professional and trustworthy online presence.
-- Ensure the website is accessible on both computers and mobile devices.
+## Run locally
+
+1. Clone or download this repository.
+2. Open the repository folder.
+3. Open `index.html` in a browser, or run a local static server from the repository root.
+4. Navigate through the main menu and test the filters, gallery and forms.
+
+No build step or package installation is required.
+
+## Deployment
+
+A GitHub Actions workflow is included at `.github/workflows/deploy.yml` to publish the static site to GitHub Pages. In repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**. Then check the Actions tab for the deployment result and Pages settings for the published URL.
+
+## Before public launch
+
+- Confirm the actual business street address before adding an interactive map.
+- Verify the telephone number, WhatsApp number and email address; current contact values were inherited from the academic project and may be placeholders.
+- Confirm package names, inclusions, availability and pricing with the business.
+- Connect and test a real form backend if online submission is required.
+- Check image ownership, permissions and required credits.
+- Test on desktop and mobile browsers and run HTML/accessibility validation.
+
+## Project structure
+
+```
+.
+├── asserts/images/
+├── css/style.css
+├── js/script.js
+├── pages/
+│   ├── about.html
+│   ├── contact.html
+│   ├── enquiry.html
+│   ├── gallery.html
+│   └── packages.html
+├── index.html
+├── README.md
+├── CHANGELOG.md
+├── REFERENCES.md
+├── TESTING.md
+├── robots.txt
+└── sitemap.xml
+```
