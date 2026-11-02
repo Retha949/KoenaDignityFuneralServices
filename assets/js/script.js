@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     floral: ["floral"]
   };
 
-  const normalise = value => value.toLocaleLowerCase().replace(/\\s+/g, " ").trim();
+  const normalise = value => value.toLocaleLowerCase().replace(/\s+/g, " ").trim();
 
   function filterPackages() {
     if (!search || !packageType || !category || !resultCount || !cards.length) return;
