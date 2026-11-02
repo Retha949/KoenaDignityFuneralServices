@@ -205,6 +205,27 @@
                  PACKAGE GRID
                  ================================================= -->
 
+            <div class="package-filter" aria-label="Filter funeral packages">
+                <div class="package-filter__search">
+                    <label for="package-search">Search packages or services</label>
+                    <input type="search" id="package-search" placeholder="e.g. coffin, transport, memorial" autocomplete="off">
+                </div>
+                <div class="package-filter__category">
+                    <label for="package-category">Filter by service</label>
+                    <select id="package-category">
+                        <option value="all">All services</option>
+                        <option value="arrangements">Funeral arrangements</option>
+                        <option value="coffin">Coffin selection</option>
+                        <option value="transport">Transportation</option>
+                        <option value="memorial">Memorial services</option>
+                        <option value="floral">Floral arrangements</option>
+                        <option value="cultural">Cultural / traditional arrangements</option>
+                    </select>
+                </div>
+                <button type="button" id="clear-package-filters" class="package-filter__clear">Clear filters</button>
+            </div>
+            <p id="package-results" class="package-results" role="status" aria-live="polite">Showing all 4 funeral packages.</p>
+
             <div class="service-grid">
 
 
