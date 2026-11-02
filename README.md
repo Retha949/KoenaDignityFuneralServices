@@ -57,8 +57,8 @@ The repository follows an organised assets/pages/docs layout. See [docs/PROJECT-
 ├── .github/workflows/
 ├── assets/
 │   ├── css/styles.css
-│   └── js/script.js
-├── asserts/images/  (existing image paths retained)
+│   ├── js/script.js
+│   └── images/
 ├── docs/
 │   └── PROJECT-STRUCTURE.md
 ├── pages/
