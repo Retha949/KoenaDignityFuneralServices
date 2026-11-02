@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
       required: ["contact-name", "contact-email", "contact-phone", "contact-subject", "contact-message"]
     },
     "Funeral services enquiry": {
-      required: ["first-name", "surname", "enquiry-phone", "enquiry-email", "contact-method", "enquiry-type", "enquiry-message"],
+      required: ["first-name", "surname", "enquiry-phone", "enquiry-email", "contact-method", "enquiry-type", "preferred-package", "enquiry-message"],
       consent: true
     }
   };
