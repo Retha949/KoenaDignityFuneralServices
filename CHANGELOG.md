@@ -3,7 +3,7 @@
 ## 2026-11-02 — Website improvement pass
 
 - Rebuilt the five existing pages with valid, consistent document structure and shared navigation.
-- Corrected image references to use repository assets under `asserts/images/`.
+- Migrated all website image references to the shared `assets/images/` directory.
 - Added a dedicated gallery page and repaired missing page links.
 - Added responsive mobile navigation and a skip-to-content link.
 - Added package keyword search, service filters, result counts and an empty-results message.
