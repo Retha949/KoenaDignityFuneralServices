@@ -8,7 +8,11 @@
 - [x] Added responsive navigation controls and mobile menu state.
 - [x] Added package search/filter logic, result count and no-results state.
 - [x] Added FAQ disclosure controls and gallery lightbox interactions.
-- [x] Added required fields, email input types, phone patterns and JavaScript validation to both forms.
+- [x] Added required fields, email input types, phone patterns, native HTML constraint validation and JavaScript field-level validation to both forms.
+- [x] Checked all local navigation, image, stylesheet and script references across the six HTML pages; no missing local targets were found.
+- [x] Checked that migrated image files exist under `assets/images/` and no legacy `asserts/images/` references remain in page markup or CSS.
+- [x] Fixed whitespace normalisation in package search.
+- [x] Verified the latest GitHub Pages Actions deployment workflow completed successfully.
 - [x] Added page-specific titles, descriptions and image alternative text.
 - [x] Added deployment workflow configuration.
 
@@ -25,8 +29,9 @@
 - [ ] Submit valid forms and confirm the email application opens with all expected fields.
 - [ ] Check console for JavaScript errors and network requests for missing assets.
 - [ ] Run an HTML validator and accessibility checker.
-- [ ] Enable GitHub Pages and verify the live URL and deployed pages.
+- [ ] Verify the published GitHub Pages URL and inspect each deployed page in a browser (the Actions deployment succeeded, but live-page inspection is still outstanding).
+- [ ] Capture desktop and mobile screenshots for the project evidence folder.
 
 ## Limitations
 
-This record documents source-level implementation checks only. No interactive browser session, cross-browser test, real form delivery, accessibility audit or live deployment verification has been performed in this update.
+This record documents source-level checks and the successful GitHub Actions deployment workflow. No interactive browser session, cross-browser test, real form delivery, accessibility audit, screenshot capture or direct live-page verification has been completed in this update. Forms currently open a prepared email in the visitor's email application; they do not transmit or store submissions on a server.
