@@ -18,6 +18,13 @@
 ### Known limitations / follow-up
 
 - Forms currently use a `mailto:` handoff; no server-side delivery or storage is configured.
-- Interactive map is pending confirmation of the actual business street address.
+- Google Maps is embedded on the Contact page with a meaningful marker, zoom/pan interaction, a separate directions link and responsive mobile sizing. The supplied pin is in Gqeberha while the site's proposed service area still says Bloemfontein; confirm the business location before public launch.
 - Business contact details, package inclusions and image permissions must be verified before public launch.
-- Browser-based visual testing and live deployment verification remain to be completed after Pages is enabled.
+- Browser-based visual testing of the map at desktop and mobile widths, including confirmation that the live deployed map loads and its marker/controls work, remains to be completed.
+
+
+## 2026-11-02 — Interactive map requirements
+
+- Added responsive map container styling so the Google Maps iframe fills the available width and maintains a usable height on desktop and mobile.
+- Documented the four WEDE5020 POE Part 3 minimum map checks: deployed loading, meaningful marker, user interaction (zoom/pan or marker information), and mobile usability.
+- Added local testing instructions and a public-launch location verification note to the README.
