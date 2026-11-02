@@ -387,21 +387,59 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const lines = [];
-      new FormData(form).forEach((value, key) => {
-        if (key.toLowerCase() !== "consent") lines.push(key + ": " + value);
-      });
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton ? submitButton.textContent : "";
 
-      const subject = encodeURIComponent(purpose + " - Koena Dignity Funeral Services");
-      const body = encodeURIComponent(lines.join("\n"));
-      const mailto = "mailto:info@koenadignity.co.za?subject=" + subject + "&body=" + body;
-
+      if (submitButton) {
+        submitButton.textContent = "Sending...";
+        submitButton.disabled = true;
+      }
       if (feedback) {
-        feedback.textContent = "Your email application should open with your details prepared. Review the message and press Send in your email application.";
+        feedback.textContent = "Sending your message securely…";
         feedback.setAttribute("role", "status");
         feedback.setAttribute("aria-live", "polite");
       }
-      window.location.href = mailto;
+
+      try {
+        const formData = new FormData(form);
+        // The access key is a public browser-side key. Restrict its allowed domains in Web3Forms.
+        formData.set("access_key", "3d0bb417-32d0-4ac1-8894-3d82f13bfffe");
+        formData.set("subject", purpose + " - Koena Dignity Funeral Services");
+        formData.set("from_name", "Koena Dignity Funeral Services");
+
+        const emailField = form.querySelector('input[type="email"]');
+        if (emailField) formData.set("email", emailField.value.trim());
+
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: formData
+        });
+
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || data.success !== true) {
+          throw new Error(data.message || data.error || data.body?.message || "Your message could not be sent. Please try again.");
+        }
+
+        form.reset();
+        fields.forEach(clearFieldError);
+        if (feedback) {
+          feedback.textContent = data.message || "Success! Your message has been sent.";
+          feedback.setAttribute("role", "status");
+          feedback.setAttribute("aria-live", "polite");
+        }
+      } catch (error) {
+        if (feedback) {
+          feedback.textContent = error.message || "Something went wrong. Please try again.";
+          feedback.setAttribute("role", "alert");
+          feedback.setAttribute("aria-live", "assertive");
+        }
+      } finally {
+        if (submitButton) {
+          submitButton.textContent = originalButtonText;
+          submitButton.disabled = false;
+        }
+      }
     });
   });
 });
