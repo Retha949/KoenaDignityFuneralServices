@@ -20,7 +20,7 @@ A responsive multi-page academic website for Koena Dignity Funeral Services, a p
 - Gallery lightbox using the native HTML dialog element.
 - HTML5 form constraints, email validation, phone format checks and client-side feedback.
 - Package enquiry links preselect the chosen package on the enquiry page.
-- Responsive Google Maps embed on the Contact page, with a location marker, interactive zoom/pan controls and a separate directions link.
+- Responsive Leaflet interactive map on the Contact page, with a location marker, interactive zoom/pan controls and a separate directions link.
 - Reduced-motion support.
 
 ## Forms: important limitation
@@ -76,3 +76,12 @@ The repository follows an organised assets/pages/docs layout. See [docs/PROJECT-
 ├── robots.txt
 └── sitemap.xml
 ```
+
+
+### Leaflet interactive map
+
+The Contact page uses Leaflet 1.9.4 with OpenStreetMap street tiles and an OpenTopoMap terrain option. Visitors can zoom and pan, open the business-location marker popup, view a metric scale, switch map layers, and optionally request their current location through the browser's geolocation permission prompt. The map uses the coordinates supplied for 3 Brunswick Road, Perridgevale, Gqeberha. OpenStreetMap and OpenTopoMap attribution is displayed in the map.
+
+The browser's geolocation feature requires a secure context (HTTPS or localhost) and user permission. If the Leaflet library or location service is unavailable, visitors can still use the separate Google Maps directions link. Confirm the Gqeberha pin against the proposed Bloemfontein service area before launch.
+
+Manual checks: verify map tiles load, test zoom/pan, marker popup, layer switching, metric scale and locate-me permission handling; check the map at desktop and mobile widths.
