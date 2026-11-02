@@ -11,44 +11,60 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Funeral package search and service category filter
+  // Funeral package search, package-type filter and service-category filter.
   const search = document.getElementById("package-search");
+  const packageType = document.getElementById("package-type");
   const category = document.getElementById("package-category");
   const clear = document.getElementById("clear-package-filters");
   const resultCount = document.getElementById("package-results");
+  const emptyState = document.getElementById("package-empty");
   const cards = Array.from(document.querySelectorAll(".package-card"));
-  const terms = {
+
+  const serviceTerms = {
     arrangements: ["funeral arrangement", "funeral coordination", "administrative support"],
     coffin: ["coffin"],
     transport: ["transportation", "hearse"],
     memorial: ["memorial"],
     floral: ["floral"]
   };
+
+  const normalise = value => value.toLocaleLowerCase().replace(/\\s+/g, " ").trim();
+
   function filterPackages() {
-    if (!search || !category || !resultCount || !cards.length) return;
-    const query = search.value.trim().toLocaleLowerCase();
-    const selected = category.value;
+    if (!search || !packageType || !category || !resultCount || !cards.length) return;
+
+    const query = normalise(search.value);
+    const selectedType = packageType.value;
+    const selectedService = category.value;
     let shown = 0;
+
     cards.forEach(card => {
-      const content = card.textContent.toLocaleLowerCase();
-      const matchesText = !query || content.includes(query);
-      const categoryTerms = terms[selected] || [];
-      const matchesCategory = selected === "all" || categoryTerms.some(term => content.includes(term));
-      const visible = matchesText && matchesCategory;
+      const heading = normalise(card.querySelector("h3")?.textContent || "");
+      const content = normalise(card.textContent);
+      const matchesSearch = !query || content.includes(query);
+      const matchesType = selectedType === "all" || heading.startsWith(selectedType);
+      const matchingTerms = serviceTerms[selectedService] || [];
+      const matchesService = selectedService === "all"
+        || matchingTerms.some(term => content.includes(term));
+      const visible = matchesSearch && matchesType && matchesService;
+
       card.hidden = !visible;
       if (visible) shown += 1;
     });
+
     resultCount.textContent = shown === cards.length
       ? "Showing all " + shown + " funeral packages."
       : "Showing " + shown + " of " + cards.length + " funeral packages.";
-    const empty = document.getElementById("package-empty");
-    if (empty) empty.hidden = shown !== 0;
+    if (emptyState) emptyState.hidden = shown !== 0;
   }
-  if (search && category && clear) {
+
+  if (search && packageType && category && clear) {
     search.addEventListener("input", filterPackages);
+    packageType.addEventListener("change", filterPackages);
     category.addEventListener("change", filterPackages);
     clear.addEventListener("click", () => {
       search.value = "";
+      packageType.value = "all";
       category.value = "all";
       filterPackages();
       search.focus();
