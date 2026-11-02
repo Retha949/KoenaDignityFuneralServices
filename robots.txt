@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://retha949.github.io/KoenaDignityFuneralServices/sitemap.xml
