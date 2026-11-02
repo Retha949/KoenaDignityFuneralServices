@@ -18,14 +18,16 @@ A responsive multi-page academic website for Koena Dignity Funeral Services, a p
 - Client-side package search and service-category filtering.
 - FAQ accordion using native HTML `details` and `summary` elements.
 - Gallery lightbox using the native HTML dialog element.
-- HTML5 form constraints, email validation, phone format checks and client-side feedback.
+- HTML5 form constraints, email validation, South African phone checks, inline validation feedback and asynchronous Web3Forms submission on all contact/enquiry forms.
 - Package enquiry links preselect the chosen package on the enquiry page.
 - Responsive Leaflet interactive map on the Contact page, with a location marker, interactive zoom/pan controls and a separate directions link.
 - Reduced-motion support.
 
-## Forms: important limitation
+## Online form submission
 
-The contact and enquiry forms validate input and prepare an email using the visitor's configured email application (`mailto:`). The visitor must review and press **Send** in that application. The website does **not** currently send form data to a server or store submissions. To provide true online form submission, connect a form backend (for example Formspree, Netlify Forms or a custom server endpoint), configure its destination and update the form action before production use.
+The Contact form and both Enquiry form layouts submit asynchronously to Web3Forms. Visitors see a sending state, success confirmation or an error message; the form resets only after a successful response. The supplied Web3Forms access key is included in the browser-side form code, as required for a static-site integration. It is a public form key, not a private server secret.
+
+In the Web3Forms dashboard, add the deployed website domain under **Form → Settings → Allowed Domains**. Test a real submission from the deployed site and confirm that the notification reaches the intended inbox. Do not treat the form as production-ready until the key is confirmed active and the allowed domain and notification recipient are configured. The website does not operate its own form server or database.
 
 ## Run locally
 
@@ -45,7 +47,7 @@ A GitHub Actions workflow is included at `.github/workflows/deploy.yml` to publi
 - Verify that the supplied map location (3 Brunswick Road, Perridgevale, Gqeberha) is the actual business location; the site still identifies Bloemfontein as its proposed service area.
 - Verify the telephone number, WhatsApp number and email address; current contact values were inherited from the academic project and may be placeholders.
 - Confirm package names, inclusions, availability and pricing with the business.
-- Connect and test a real form backend if online submission is required.
+- Confirm the Web3Forms access key, allowed production domain and notification recipient; submit test messages from the deployed website.
 - Check image ownership, permissions and required credits.
 - Test on desktop and mobile browsers and run HTML/accessibility validation.
 
