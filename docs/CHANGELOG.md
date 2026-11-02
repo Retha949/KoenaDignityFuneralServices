@@ -18,9 +18,9 @@
 ### Known limitations / follow-up
 
 - Forms currently use a `mailto:` handoff; no server-side delivery or storage is configured.
-- Google Maps is embedded on the Contact page with a meaningful marker, zoom/pan interaction, a separate directions link and responsive mobile sizing. The supplied pin is in Gqeberha while the site's proposed service area still says Bloemfontein; confirm the business location before public launch.
+- The Contact page uses Leaflet with OpenStreetMap street tiles, an OpenTopoMap terrain layer, a location marker popup, zoom/pan controls, metric scale, layer switcher and opt-in browser geolocation. The supplied pin is in Gqeberha while the site's proposed service area still says Bloemfontein; confirm the business location before public launch.
 - Business contact details, package inclusions and image permissions must be verified before public launch.
-- Browser-based visual testing of the map at desktop and mobile widths, including confirmation that the live deployed map loads and its marker/controls work, remains to be completed.
+- Browser-based testing of Leaflet tile loading, marker popup, layer switching, geolocation permission handling, and desktop/mobile usability on the deployed site remains to be completed.
 
 
 ## 2026-11-02 — Interactive map requirements
@@ -28,3 +28,13 @@
 - Added responsive map container styling so the Google Maps iframe fills the available width and maintains a usable height on desktop and mobile.
 - Documented the four WEDE5020 POE Part 3 minimum map checks: deployed loading, meaningful marker, user interaction (zoom/pan or marker information), and mobile usability.
 - Added local testing instructions and a public-launch location verification note to the README.
+
+
+## 2026-11-02 — Leaflet map enhancements
+
+- Replaced the Contact page's embedded Google Map with a Leaflet map.
+- Added OpenStreetMap street tiles and an OpenTopoMap terrain layer with attribution.
+- Added a keyboard-accessible business marker and popup with address and directions.
+- Added zoom/pan, metric scale, map-layer switching, and an opt-in locate-me control using browser geolocation.
+- Added responsive map styling and a status message for map readiness and location permission feedback.
+- Retained the external Google Maps directions link as a fallback.
