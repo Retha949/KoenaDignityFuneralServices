@@ -50,11 +50,17 @@ A GitHub Actions workflow is included at `.github/workflows/deploy.yml` to publi
 
 ## Project structure
 
+The repository follows an organised assets/pages/docs layout. See [docs/PROJECT-STRUCTURE.md](docs/PROJECT-STRUCTURE.md) for the full explanation.
+
 ```
 .
-├── asserts/images/
-├── css/style.css
-├── js/script.js
+├── .github/workflows/
+├── assets/
+│   ├── css/styles.css
+│   └── js/script.js
+├── asserts/images/  (existing image paths retained)
+├── docs/
+│   └── PROJECT-STRUCTURE.md
 ├── pages/
 │   ├── about.html
 │   ├── contact.html
