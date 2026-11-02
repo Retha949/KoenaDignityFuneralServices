@@ -10,10 +10,9 @@ KoenaDignityFuneralServices/
 ├── assets/
 │   ├── css/
 │   │   └── styles.css
-│   └── js/
-│       └── script.js
-├── asserts/
-│   └── images/                 Existing project images (legacy folder name retained)
+│   ├── js/
+│   │   └── script.js
+│   └── images/                 Site photographs and graphics
 ├── docs/
 │   └── PROJECT-STRUCTURE.md
 ├── pages/
@@ -37,7 +36,7 @@ KoenaDignityFuneralServices/
 | --- | --- |
 | `assets/css/styles.css` | Shared site-wide styling, responsive layouts and form-validation feedback. |
 | `assets/js/script.js` | Shared browser behaviour, package filtering, gallery interactions and form validation. |
-| `asserts/images/` | Existing site photographs and graphics. The original folder name is retained so image links remain valid. |
+| `assets/images/` | Site photographs, logo and heritage graphics used by the website. |
 | `pages/` | Individual informational and interaction pages. |
 | `.github/workflows/` | GitHub Actions deployment configuration. |
 | `docs/` | Project documentation and technical notes. |
@@ -65,7 +64,7 @@ Pages inside `pages/` use parent-relative paths:
 - CSS: `../assets/css/styles.css`
 - JavaScript: `../assets/js/script.js`
 
-The image directory has not been renamed as part of this change. Keeping `asserts/images/` avoids breaking existing image references; it can be migrated separately after every image path has been mapped and verified.
+All site images are stored in `assets/images/`. Root-level pages reference them with `assets/images/`; pages inside `pages/` use `../assets/images/`; the stylesheet uses `../images/` because it lives in `assets/css/`.
 
 ## Architecture notes
 
