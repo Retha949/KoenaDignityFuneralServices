@@ -208,3 +208,83 @@ main{min-height:55vh}
   .content-section:has(>.map-embed)>p:has(>a)>a{width:100%;justify-content:center}
 }
 
+/* Leaflet map canvas and native Leaflet controls. */
+.map-embed{overflow:hidden;padding:8px}
+.leaflet-map{
+  width:100%;
+  height:clamp(360px,52vw,540px);
+  min-height:360px;
+  border-radius:9px;
+  background:#e8edf1;
+  z-index:0;
+}
+.leaflet-container{
+  font:14px/1.5 Arial,Helvetica,sans-serif;
+  color:#26313d;
+}
+.leaflet-control-zoom a,
+.leaflet-bar a{
+  color:var(--navy);
+}
+.leaflet-control-zoom a:hover,
+.leaflet-bar a:hover{
+  color:#80620a;
+}
+.leaflet-control-layers,
+.leaflet-bar{
+  border:1px solid rgba(11,31,58,.16)!important;
+  border-radius:7px!important;
+  box-shadow:0 3px 12px rgba(7,20,38,.16)!important;
+  overflow:hidden;
+}
+.leaflet-control-layers-toggle{
+  width:34px!important;
+  height:34px!important;
+  background-size:18px 18px;
+}
+.leaflet-locate{
+  display:flex!important;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  padding:0;
+  border:0;
+  background:#fff;
+  color:var(--navy);
+  font-size:23px;
+  line-height:1;
+  cursor:pointer;
+}
+.leaflet-locate:hover{background:#f7f0d9;color:#80620a}
+.leaflet-locate:focus-visible{
+  outline:3px solid var(--gold);
+  outline-offset:2px;
+}
+.leaflet-locate:disabled{opacity:.55;cursor:wait}
+.leaflet-popup-content-wrapper{
+  border-radius:9px;
+  box-shadow:0 8px 24px rgba(7,20,38,.18);
+}
+.leaflet-popup-content{
+  margin:14px 17px;
+  line-height:1.55;
+}
+.map-popup strong{display:block;color:var(--navy);font-size:14px}
+.map-popup p{margin:6px 0 9px;color:#536171}
+.map-popup a{color:#80620a;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.leaflet-control-attribution{
+  font-size:10px!important;
+}
+.map-status{
+  margin:9px 4px 2px!important;
+  color:#536171;
+  font-size:12px;
+  line-height:1.5;
+}
+@media(max-width:700px){
+  .map-embed{padding:5px}
+  .leaflet-map{height:390px;min-height:390px;border-radius:6px}
+  .leaflet-control-attribution{font-size:9px!important}
+}
+
