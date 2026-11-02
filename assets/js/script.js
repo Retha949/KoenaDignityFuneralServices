@@ -1,5 +1,111 @@
 /* Koena Dignity Funeral Services - progressive enhancement */
 document.addEventListener("DOMContentLoaded", () => {
+  // Leaflet map on the Contact page (only initialises where the map container exists).
+  const mapElement = document.getElementById("contact-map");
+  if (mapElement) {
+    const mapStatus = document.getElementById("map-status");
+    if (typeof window.L === "undefined") {
+      if (mapStatus) mapStatus.textContent = "The map library could not be loaded. Please use the Google Maps directions link below.";
+    } else {
+      const businessLocation = [-33.94549647319732, 25.58067187643229];
+      const map = L.map(mapElement, {
+        scrollWheelZoom: false,
+        zoomControl: true
+      }).setView(businessLocation, 16);
+
+      const streetLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors'
+      });
+
+      const terrainLayer = L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+        maxZoom: 17,
+        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors, <a href="https://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a>'
+      });
+
+      streetLayer.addTo(map);
+      L.control.layers({
+        "Street map": streetLayer,
+        "Terrain map": terrainLayer
+      }, null, { collapsed: true }).addTo(map);
+
+      L.control.scale({ imperial: false, metric: true, position: "bottomleft" }).addTo(map);
+
+      const directionsUrl = "https://www.google.com/maps/search/?api=1&query=3+Brunswick+Road%2C+Perridgevale%2C+Gqeberha%2C+6001";
+      const locationMarker = L.marker(businessLocation, {
+        title: "3 Brunswick Road, Perridgevale, Gqeberha",
+        alt: "Marker for 3 Brunswick Road, Perridgevale, Gqeberha",
+        keyboard: true
+      }).addTo(map);
+
+      locationMarker.bindPopup(
+        '<div class="map-popup"><strong>Koena Dignity Funeral Services</strong>' +
+        '<p>3 Brunswick Road, Perridgevale,<br>Gqeberha, 6001</p>' +
+        '<a href="' + directionsUrl + '" target="_blank" rel="noopener noreferrer">Get directions</a></div>'
+      );
+      locationMarker.openPopup();
+
+      // Add an opt-in location control; the browser asks permission only after a click.
+      const LocateControl = L.Control.extend({
+        options: { position: "topleft" },
+        onAdd: function () {
+          const button = L.DomUtil.create("button", "leaflet-bar leaflet-control leaflet-locate");
+          button.type = "button";
+          button.title = "Find my location";
+          button.setAttribute("aria-label", "Find my current location");
+          button.textContent = "◎";
+          L.DomEvent.disableClickPropagation(button);
+          L.DomEvent.on(button, "click", function () {
+            if (!navigator.geolocation) {
+              if (mapStatus) mapStatus.textContent = "Location services are not available in this browser.";
+              return;
+            }
+            button.disabled = true;
+            if (mapStatus) mapStatus.textContent = "Requesting your location…";
+            navigator.geolocation.getCurrentPosition(position => {
+              const userLocation = [position.coords.latitude, position.coords.longitude];
+              const accuracy = position.coords.accuracy;
+              if (map.userLocationLayer) map.removeLayer(map.userLocationLayer);
+              if (map.userAccuracyLayer) map.removeLayer(map.userAccuracyLayer);
+              map.userAccuracyLayer = L.circle(userLocation, {
+                radius: accuracy,
+                color: "#80620a",
+                weight: 1,
+                fillColor: "#e2c35a",
+                fillOpacity: 0.16
+              }).addTo(map);
+              map.userLocationLayer = L.circleMarker(userLocation, {
+                radius: 7,
+                color: "#fff",
+                weight: 2,
+                fillColor: "#1769aa",
+                fillOpacity: 1
+              }).addTo(map).bindPopup("Your current location");
+              map.fitBounds(map.userAccuracyLayer.getBounds().pad(0.2));
+              if (mapStatus) mapStatus.textContent = "Your location is shown on the map. Accuracy: about " + Math.round(accuracy) + " metres.";
+              button.disabled = false;
+            }, error => {
+              const messages = {
+                1: "Location permission was denied. You can still use the map manually.",
+                2: "Your location is currently unavailable. Please try again later.",
+                3: "The location request timed out. Please try again."
+              };
+              if (mapStatus) mapStatus.textContent = messages[error.code] || "Unable to find your location.";
+              button.disabled = false;
+            }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
+          });
+          return button;
+        }
+      });
+      map.addControl(new LocateControl());
+
+      map.whenReady(() => {
+        if (mapStatus) mapStatus.textContent = "Interactive map ready. Drag to pan, use +/− to zoom, or choose a different map layer.";
+      });
+      window.addEventListener("resize", () => map.invalidateSize());
+    }
+  }
+
   // Responsive navigation
   const menuButton = document.querySelector(".menu-toggle");
   const navigation = document.getElementById("primary-navigation");
