@@ -1,4 +1,5 @@
 # Changelog
+- Expanded the funeral package catalogue from 4 to 24 illustrative options, added category-based filtering for the new package types, and made all 24 options available from the enquiry form.
 
 ## 2026-11-02 — Website improvement pass
 
