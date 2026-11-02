@@ -9,6 +9,8 @@
 - Added package keyword search, service filters, result counts and an empty-results message.
 - Added an FAQ accordion and an image gallery lightbox.
 - Reworked contact and enquiry forms with semantic labels, HTML5 constraints, client-side phone validation and email-app handoff feedback.
+- Enabled native browser constraint validation alongside the existing inline JavaScript validation and accessible field feedback.
+- Corrected whitespace handling in package search.
 - Added page-specific titles and meta descriptions, responsive styling and reduced-motion support.
 - Added README, references, testing notes and a GitHub Pages deployment workflow.
 
