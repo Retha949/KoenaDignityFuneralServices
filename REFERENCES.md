@@ -2,7 +2,7 @@
 
 ## Project content and supplied assets
 
-- Existing Koena Dignity Funeral Services project content and image files in this repository (`asserts/images/`).
+- Existing Koena Dignity Funeral Services project content and image files in this repository (`assets/images/`).
 - Existing project brief and requirements guide supplied by the project owner. Requirements should be checked against the original course guide when preparing final academic evidence.
 
 ## Technical references
