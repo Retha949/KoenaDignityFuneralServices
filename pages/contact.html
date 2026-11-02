@@ -86,7 +86,7 @@
             method="POST"
             enctype="multipart/form-data"
             data-form-purpose="Contact message"
-          >
+           novalidate>
             <input type="hidden" name="access_key" value="3d0bb417-32d0-4ac1-8894-3d82f13bfffe" />
             <input type="hidden" name="subject" value="New contact message - Koena Dignity Funeral Services" />
             <label for="contact-name">Full name</label
@@ -94,28 +94,20 @@
               id="contact-name"
               name="Name"
               autocomplete="name"
-              required
-              minlength="2"
-              maxlength="80"
             /><label for="contact-email">Email address</label
             ><input
               id="contact-email"
               name="Email"
               type="email"
               autocomplete="email"
-              required
-              maxlength="120"
             /><label for="contact-phone">Phone number</label
             ><input
               id="contact-phone"
               name="Phone"
               type="tel"
               autocomplete="tel"
-              required
-              pattern="(?:0|\\+27)[0-9\\s()-]{9,}"
-              title="Enter a South African telephone number, e.g. 082 123 4567 or +27 82 123 4567"
             /><label for="contact-subject">Subject</label
-            ><select id="contact-subject" name="Subject" required>
+            ><select id="contact-subject" name="Subject">
               <option value="">Choose a subject</option>
               <option>Funeral arrangements</option>
               <option>Funeral packages</option>
@@ -126,9 +118,6 @@
               id="contact-message"
               name="Message"
               rows="5"
-              required
-              minlength="10"
-              maxlength="1000"
             ></textarea
             ><button class="button button-gold" type="submit">
               Send message
