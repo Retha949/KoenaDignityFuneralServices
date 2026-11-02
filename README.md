@@ -20,6 +20,7 @@ A responsive multi-page academic website for Koena Dignity Funeral Services, a p
 - Gallery lightbox using the native HTML dialog element.
 - HTML5 form constraints, email validation, phone format checks and client-side feedback.
 - Package enquiry links preselect the chosen package on the enquiry page.
+- Responsive Google Maps embed on the Contact page, with a location marker, interactive zoom/pan controls and a separate directions link.
 - Reduced-motion support.
 
 ## Forms: important limitation
@@ -31,7 +32,7 @@ The contact and enquiry forms validate input and prepare an email using the visi
 1. Clone or download this repository.
 2. Open the repository folder.
 3. Open `index.html` in a browser, or run a local static server from the repository root.
-4. Navigate through the main menu and test the filters, gallery and forms.
+4. Navigate through the main menu and test the filters, gallery, forms and interactive Contact-page map. Confirm the map marker, zoom/pan controls and mobile layout.
 
 No build step or package installation is required.
 
@@ -41,7 +42,7 @@ A GitHub Actions workflow is included at `.github/workflows/deploy.yml` to publi
 
 ## Before public launch
 
-- Confirm the actual business street address before adding an interactive map.
+- Verify that the supplied map location (3 Brunswick Road, Perridgevale, Gqeberha) is the actual business location; the site still identifies Bloemfontein as its proposed service area.
 - Verify the telephone number, WhatsApp number and email address; current contact values were inherited from the academic project and may be placeholders.
 - Confirm package names, inclusions, availability and pricing with the business.
 - Connect and test a real form backend if online submission is required.
