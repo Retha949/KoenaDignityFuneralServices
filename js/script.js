@@ -102,11 +102,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // JavaScript-only validation for every form on the website.
+  // JavaScript-only, field-by-field form validation inspired by Campus-Cart.
   const formRules = {
     "Contact message": {
-      required: ["contact-name", "contact-email", "contact-phone", "contact-subject", "contact-message"],
-      consent: false
+      required: ["contact-name", "contact-email", "contact-phone", "contact-subject", "contact-message"]
     },
     "Funeral services enquiry": {
       required: ["first-name", "surname", "enquiry-phone", "enquiry-email", "contact-method", "enquiry-type", "enquiry-message"],
@@ -120,102 +119,157 @@ document.addEventListener("DOMContentLoaded", () => {
     return local.toISOString().slice(0, 10);
   };
 
-  document.querySelectorAll("form").forEach(form => {
-    // novalidate prevents browser pop-ups; all checks below are handled here.
-    form.noValidate = true;
-    const feedback = form.querySelector(".form-feedback");
-    const purpose = form.dataset.formPurpose || "Website enquiry";
-    const rules = formRules[purpose] || { required: [], consent: false };
-    const fields = Array.from(form.querySelectorAll("input, select, textarea"));
-    const dateField = form.querySelector('input[type="date"]');
+  const validEmail = value =>
+    value.length <= 120 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
-    const fieldLabel = field => {
-      const label = field.id && form.querySelector('label[for="' + field.id + '"]');
-      return (label ? label.textContent : field.name || "This field").trim();
+  // Accept South African mobile/landline formats such as 082 123 4567 or +27 82 123 4567.
+  const validPhone = value => {
+    const cleaned = value.replace(/[\s\-()]/g, "");
+    return /^(0\d{9}|\+27\d{9})$/.test(cleaned);
+  };
+
+  document.querySelectorAll("form").forEach(form => {
+    form.noValidate = true;
+    const purpose = form.dataset.formPurpose || "Website enquiry";
+    const rules = formRules[purpose] || { required: [] };
+    const feedback = form.querySelector(".form-feedback");
+    const fields = Array.from(form.querySelectorAll("input, select, textarea"))
+      .filter(field => field.type !== "submit" && field.type !== "button" && field.type !== "hidden");
+
+    const labelFor = field => {
+      const label = field.id
+        ? form.querySelector('label[for="' + field.id + '"]')
+        : field.closest("label");
+      return (label?.textContent || field.name || "This field").trim();
     };
 
-    const clearFieldError = field => {
+    // Create a dedicated accessible error message for each field.
+    fields.forEach(field => {
+      if (!field.id) field.id = "form-field-" + Math.random().toString(36).slice(2, 9);
+      const errorId = field.id + "-error";
+      let error = document.getElementById(errorId);
+      if (!error) {
+        error = document.createElement("small");
+        error.id = errorId;
+        error.className = "field-error";
+        error.hidden = true;
+        error.setAttribute("aria-live", "polite");
+        field.insertAdjacentElement("afterend", error);
+      }
+      const describedBy = (field.getAttribute("aria-describedby") || "")
+        .split(/\s+/).filter(Boolean);
+      if (!describedBy.includes(errorId)) describedBy.push(errorId);
+      field.setAttribute("aria-describedby", describedBy.join(" "));
+    });
+
+    function showFieldError(field, message) {
+      const error = document.getElementById(field.id + "-error");
+      field.setAttribute("aria-invalid", "true");
+      field.classList.add("is-invalid");
+      if (error) {
+        error.textContent = message;
+        error.hidden = false;
+      }
+      return false;
+    }
+
+    function clearFieldError(field) {
+      const error = document.getElementById(field.id + "-error");
       field.removeAttribute("aria-invalid");
       field.classList.remove("is-invalid");
-    };
+      if (error) {
+        error.textContent = "";
+        error.hidden = true;
+      }
+    }
 
+    function validateField(field) {
+      const value = field.type === "checkbox" ? "" : field.value.trim();
+      const required = rules.required.includes(field.id);
+      const name = labelFor(field);
+
+      clearFieldError(field);
+
+      if (field.type === "checkbox") {
+        if (field.name === "Consent" && rules.consent && !field.checked) {
+          return showFieldError(field, "Please agree to the consent statement before submitting.");
+        }
+        return true;
+      }
+
+      if (required && !value) {
+        return showFieldError(field, name + " is required.");
+      }
+
+      // Optional fields may be left blank, but are checked whenever a value is entered.
+      if (!value) return true;
+
+      if (field.type === "email" && !validEmail(value)) {
+        return showFieldError(field, "Enter a valid email address (maximum 120 characters).");
+      }
+
+      if (field.type === "tel" && !validPhone(value)) {
+        return showFieldError(field, "Enter a valid South African number, e.g. 082 123 4567 or +27 82 123 4567.");
+      }
+
+      if (["contact-name", "first-name", "surname"].includes(field.id)) {
+        if (value.length < 2 || value.length > 80 || !/^[\p{L}][\p{L}\p{M} '\u2019-]*$/u.test(value)) {
+          return showFieldError(field, "Enter a name using 2 to 80 letters. Spaces, apostrophes and hyphens are allowed.");
+        }
+      }
+
+      if (["contact-message", "enquiry-message"].includes(field.id)) {
+        if (value.length < 10 || value.length > 1000) {
+          return showFieldError(field, "Please enter between 10 and 1,000 characters.");
+        }
+      }
+
+      if (field.id === "area" && (value.length < 2 || value.length > 100)) {
+        return showFieldError(field, "Enter a location between 2 and 100 characters.");
+      }
+
+      if (field.id === "preferred-date" && value < todayLocal()) {
+        return showFieldError(field, "The preferred date cannot be in the past.");
+      }
+
+      if (field.id === "attendees") {
+        const count = Number(value);
+        if (!Number.isInteger(count) || count < 1 || count > 10000) {
+          return showFieldError(field, "Enter a whole number from 1 to 10,000.");
+        }
+      }
+
+      return true;
+    }
+
+    // Validate a field as the visitor leaves it, and refresh feedback while they edit.
     fields.forEach(field => {
+      field.addEventListener("blur", () => validateField(field));
       field.addEventListener("input", () => {
-        clearFieldError(field);
+        if (field.getAttribute("aria-invalid") === "true") validateField(field);
         if (feedback) feedback.textContent = "";
       });
       field.addEventListener("change", () => {
-        clearFieldError(field);
+        validateField(field);
         if (feedback) feedback.textContent = "";
       });
     });
 
     form.addEventListener("submit", event => {
       event.preventDefault();
-      const errors = [];
       let firstInvalid = null;
-
-      fields.forEach(clearFieldError);
-
-      const addError = (field, message) => {
-        errors.push(message);
-        field.setAttribute("aria-invalid", "true");
-        field.classList.add("is-invalid");
-        if (!firstInvalid) firstInvalid = field;
-      };
-
-      rules.required.forEach(id => {
-        const field = form.querySelector("#" + id);
-        if (field && !field.value.trim()) {
-          addError(field, fieldLabel(field) + " is required.");
-        }
-      });
+      let valid = true;
 
       fields.forEach(field => {
-        const value = field.value.trim();
-        if (!value || field.type === "checkbox") return;
-
-        if (field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-          addError(field, "Enter a valid email address for " + fieldLabel(field) + ".");
-        }
-
-        if (field.type === "tel") {
-          const digits = value.replace(/\D/g, "");
-          if (!/^[0-9+()\s-]+$/.test(value) || digits.length < 7 || digits.length > 15) {
-            addError(field, "Enter a valid phone number containing 7 to 15 digits.");
-          }
-        }
-
-        if (["contact-name", "first-name", "surname"].includes(field.id) && value.length < 2) {
-          addError(field, fieldLabel(field) + " must contain at least 2 characters.");
-        }
-
-        if (["contact-message", "enquiry-message"].includes(field.id) && value.length < 10) {
-          addError(field, fieldLabel(field) + " must contain at least 10 characters.");
-        }
-
-        if (field.type === "date" && value < todayLocal()) {
-          addError(field, "The preferred date cannot be in the past.");
-        }
-
-        if (field.type === "number" && field.id === "attendees") {
-          const count = Number(value);
-          if (!Number.isInteger(count) || count < 1 || count > 10000) {
-            addError(field, "Estimated attendees must be a whole number from 1 to 10,000.");
-          }
+        if (!validateField(field)) {
+          valid = false;
+          if (!firstInvalid) firstInvalid = field;
         }
       });
 
-      if (rules.consent) {
-        const consent = form.querySelector('input[name="Consent"]');
-        if (consent && !consent.checked) {
-          addError(consent, "Please agree to the consent statement before submitting.");
-        }
-      }
-
-      if (errors.length) {
+      if (!valid) {
         if (feedback) {
-          feedback.textContent = "Please correct these items: " + errors.join(" ");
+          feedback.textContent = "Please correct the highlighted fields before continuing.";
           feedback.setAttribute("role", "alert");
           feedback.setAttribute("aria-live", "assertive");
         }
